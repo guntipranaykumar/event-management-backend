@@ -8,7 +8,7 @@ import com.event.demo.entity.Event;
 import com.event.demo.entity.Sponsor;
 import com.event.demo.service.SponsorJpaService;
 
-@CrossOrigin(origins = "https://d2cujn41htmykc.cloudfront.net")
+@CrossOrigin(origins = "https://d3ka0na2j1p42k.cloudfront.net")
 @RestController
 @RequestMapping("/api/sponsors")
 public class SponsorController {
