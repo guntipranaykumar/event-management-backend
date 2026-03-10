@@ -32,7 +32,7 @@ jobs:
         uses: appleboy/scp-action@v0.1.4
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
+          username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           source: "target/*.jar"
           target: "/home/ec2-user/app"
@@ -42,10 +42,10 @@ jobs:
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.EC2_HOST }}
-          username: ubuntu
+          username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             pkill -f 'java -jar' || true
-            cd /home/ubuntu/app
+            cd /home/ec2-user/app
             JAR=$(ls *.jar | head -n 1)
             nohup java -jar $JAR > app.log 2>&1 &
