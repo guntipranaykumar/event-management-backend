@@ -44,15 +44,17 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ec2-user
           key: ${{ secrets.EC2_SSH_KEY }}
-          script_stop: false
           script: |
             echo "Stopping old application..."
-            pkill -f 'java -jar' || true
+            PID=$(lsof -ti:8080)
+            if [ -n "$PID" ]; then
+              kill -9 $PID
+            fi
+
             sleep 5
 
             echo "Starting new application..."
             cd /home/ec2-user/app/target
-
             nohup java -jar EventManagement-0.0.1-SNAPSHOT.jar > app.log 2>&1 &
 
             echo "Application started successfully"
